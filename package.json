@@ -1,0 +1,26 @@
+{
+  "name": "server-manager",
+  "version": "1.0.0",
+  "description": "Gère la structure de vos serveurs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord-backup": "^3.2.1",
+    "discord.js": "^14.6.0",
+    "fs": "^0.0.2"
+  },
+  "engines": {
+    "node": ">=16.9.0"
+  },
+  "repository": {
+    "url": "https://github.com/IceroDev/Discord-Bot-Template"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "Template",
+    "javascript"
+  ]
+}

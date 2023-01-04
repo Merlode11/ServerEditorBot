@@ -1,0 +1,61 @@
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array);
+    }
+}
+const scriptName = __filename.split(/[\\/]/).pop(); // Remove the last array element
+
+const { ChannelType, ApplicationCommandOptionType } = require("discord.js");
+
+async function action(client, guild, suffix, author) {
+    let changed = 0
+    let unchanged = 0
+
+    await asyncForEach( [...guild.channels.cache.values()],async channel => {
+        if (`${channel.name}${suffix}`.length < 100) {
+            if (channel.type === ChannelType.GuildCategory)
+                await channel.setName(`${channel.name}${suffix}`, `Configuration demandé par ${author.tag}`)
+                    .then(() => changed++)
+                    .catch(e => {
+                        client.log("error", e)
+                        unchanged++
+                    })
+        } else unchanged++
+    })
+    return {
+        changed,
+        unchanged
+    }
+}
+
+module.exports.runText = async (client, message, args) => {
+    if (!args[0] || args.length >= 2 ) return message.reply(`Merci de bien vouloir mettre **un** mot/charactère à rajouter à la fin !`).catch(e => client.log('error', e))
+
+    let { changed, unchanged } = await action(client, message.guild, args[0], message.author).catch(e => client.log('error', e))
+
+    message.reply(`J'ai modifié ${changed} catégories. ${unchanged ? `Je n'ai pas pu changer ${unchanged} catégories` : ``}`).catch(e => client.log('error', e))
+    await message.reactions.removeAll().catch(e => client.log('error', e))
+};
+
+module.exports.runSlash = async (client, interaction, options) => {
+    let suffix = options.getString("suffix")
+    if (!suffix || suffix.split(/\s+/).length >= 2) return interaction.editReply(`Merci de bien vouloir mettre **un** mot/charactère à rajouter à la fin !`)
+
+    let { changed, unchanged } = await action(client, interaction.guild, suffix, interaction.user).catch(e => client.log('error', e))
+
+    interaction.editReply(`J'ai modifié ${changed} catégories. ${unchanged ? `Je n'ai pas pu changer ${unchanged} catégories` : ``}`).catch(e => client.log('error', e))
+}
+
+module.exports.help = {
+    name: scriptName.replace(".js", ""),
+    categorie: 'category',
+    description: 'ajouté un suffixe dans toutes les catégories',
+    options: [
+        {
+            type: ApplicationCommandOptionType.String,
+            name: "catégorie",
+            description: "Le suffixe à ajouter",
+            required: true
+        }
+    ]
+}
