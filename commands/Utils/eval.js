@@ -4,7 +4,7 @@ const { ApplicationCommandOptionType } = require('discord.js')
 const Discord = require('discord.js');
 
 module.exports.runText = async (client, message, args) => {
-    if (message.author.id !== "424485502071209984") return message.reply({
+    if (message.author.id !== client.config.owner) return message.reply({
         content: "Vous ne pouvez pas faire cette commande",
     });
     let code = args.join(" ");
@@ -49,7 +49,7 @@ module.exports.runText = async (client, message, args) => {
 };
 
 module.exports.runSlash = async (client, interaction, options) => {
-    if (interaction.user.id !== "424485502071209984") return interaction.editReply("Vous n'avez pas la permission d'utiliser cette commande").catch(e => client.log('error', e));
+    if (interaction.user.id !== client.config.owner) return interaction.editReply("Vous n'avez pas la permission d'utiliser cette commande").catch(e => client.log('error', e));
     function clean(text) {
         if (typeof text === "string")
             return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)).replaceAll(client.config.token, '[TOKEN HIdDEN]');

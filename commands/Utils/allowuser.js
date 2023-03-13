@@ -9,31 +9,27 @@ async function asyncForEach(array, callback) {
 }
 
 async function add(client, user) {
-    if (client.config.allowedUser.includes(user.id)) {
+    if (client.config.includes(user.id)) {
         return `<@${user.id}> est déjà dans la liste des utilisateurs autorisés`
     }
-    client.config.allowedUser.push(user.id)
-    await fs.writeFileSync("../../allowedUser.json", JSON.stringify(client.config.allowedUser, null, 4), "utf-8")
+    client.config.allowedUsers.push(user.id)
+    await fs.writeFileSync("../../config.json", JSON.stringify(client.config, null, 4), "utf-8")
     return `<@${user.id}> a bien été **ajouté** à la liste des utilisateurs autorisés !`
 }
 
 async function remove(client, user){
-    console.log(user)
-    if (!client.config.allowedUser.includes(user.id)) {
+    if (!client.config.allowedUsers.includes(user.id)) {
         return `<@${user.id}> n'est pas dans la liste des utilisateurs autorisés`
     }
-    client.config.allowedUser = client.config.allowedUser.filter(id => id !== user.id)
-    await fs.writeFileSync("../../allowedUser.json", JSON.stringify(client.config.allowedUser, null, 4), "utf-8")
-    console.log(fs.readFileSync("../../allowedUser.json", "utf-8"))
-    console.log(client.config.allowedUser)
-    delete require.cache[require.resolve("../../allowedUser.json")]
-    console.log(require("../../allowedUser.json"))
+    client.config.allowedUsers = client.config.allowedUsers.filter(id => id !== user.id)
+    await fs.writeFileSync("../../config.json", JSON.stringify(client.config, null, 4), "utf-8")
+    delete require.cache[require.resolve("../../config.json")]
     return `<@${user.id}> a bien été **retiré** de la liste des utilisateurs autorisés`
 }
 
 async function list(client) {
     let string = ""
-    await asyncForEach(client.config.allowedUser, async id => {
+    await asyncForEach(client.config.allowedUsers, async id => {
         const user = await client.users.fetch(id).catch(e => client.log("error",e))
         if (user) string += `<@${id}> - ${user.tag} *(${id})*\n`
         else await remove(client, {id})
@@ -49,7 +45,7 @@ async function list(client) {
 }
 
 module.exports.runText = async (client, message, args) => {
-    if (message.author.id !== "424485502071209984") return message.reply({
+    if (message.author.id !== client.config.owner) return message.reply({
         content: "Vous ne pouvez pas faire cette commande",
     });
     switch (args[0]) {
@@ -74,7 +70,7 @@ module.exports.runText = async (client, message, args) => {
 }
 
 module.exports.runSlash = async (client, interaction, options) => {
-    if (interaction.user.id !== "424485502071209984") return interaction.editReply("Vous n'avez pas la permission de faire cette commande")
+    if (interaction.user.id !== client.config.owner) return interaction.editReply("Vous n'avez pas la permission de faire cette commande")
     if (options.data.find(o => o.name === "add")) {
         const user = options.getUser("user")
         return interaction.editReply(await add(client, user)).catch(e => client.log("error",e))

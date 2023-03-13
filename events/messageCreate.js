@@ -4,6 +4,8 @@ module.exports = (client, message) => {
     // Ignorer les messages du bot
     if (message.author.bot) return;
 
+    // Renvoyer un message d'erreur si l'ancien préfixe ("cs:") est utilisé
+    if (message.content.startsWith("cs:")) return message.channel.send("⚠ Le préfixe du bot **a été changé**, utilisez **__`se:`__** à la place de `cs:`")
     // Ignorer les messages n'ayant pas le préfixe
     if (message.content.indexOf(client.config.prefix) !== 0) return;
 
@@ -29,7 +31,7 @@ module.exports = (client, message) => {
       })
     }
 
-    if (cmd.help.name === 'createserv' && client.config.allowedUser.includes(message.member.id) && message.channel.parentId === '701783320849285120') {
+    if (cmd.help.name === 'createserv' && client.config.allowedUsers.includes(message.member.id) && message.channel.parentId === '701783320849285120') {
       message.channel.sendTyping().then(() => {})
       const timeCommandRun = Date.now()
       return cmd.runText(client, message, args).then(() => {
@@ -41,9 +43,9 @@ module.exports = (client, message) => {
       })
     }
 
-    if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return message.reply("Vous devez être administrateur pour faire cette commande").catch(e => client.log("error",e));
+    if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator) && message.author.id !== client.config.owner) return message.reply("Vous devez être administrateur pour faire cette commande").catch(e => client.log("error",e));
 
-    if (!client.config.allowedUser.includes(message.member.id)) return message.reply("Vous devez être vérifié pour faire cette commande").catch(e => client.log("error",e));
+    if (!client.config.allowedUsers.includes(message.member.id)) return message.reply("Vous devez être vérifié pour faire cette commande").catch(e => client.log("error",e));
 
     message.channel.sendTyping().then(() => {})
     const timeCommandRun = Date.now()

@@ -2,10 +2,7 @@ const { ChannelType, WebhookClient, EmbedBuilder, ApplicationCommandOptionType} 
 const scriptName = __filename.split(/[\\/]/).pop(); // Remove the last array element
 
 async function action(client, guild, note, author) {
-    const hook = new WebhookClient({
-        id: '784734956680511528',
-        token: 'jSr3uCzc-SNti6RFvN8bPiQLUrntRxV3-x-OBmh8WQ4mlzl6CTUqF96zpmCsGsTEdhDk'
-    });
+    const hook = new WebhookClient(client.config.logWebhook);
 
     let channel = guild.channels.cache.filter(chx => chx.type === ChannelType.GuildText).find(x => x.position === 0);
     if (!channel) channel = await guild.channels.create({

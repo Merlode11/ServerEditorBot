@@ -1,5 +1,6 @@
-const backup = require("discord-backup")
-const { EmbedBuilder, SelectMenuBuilder, ActionRowBuilder, SelectMenuOptionBuilder, ChannelType } = require('discord.js')
+// const backup = require("discord-backup")
+const backup = require("../../templates/index");
+const { EmbedBuilder, StringSelectMenuBuilder, ActionRowBuilder, StringSelectMenuOptionBuilder, ChannelType } = require('discord.js')
 const scriptName = __filename.split(/[\\/]/).pop(); // Remove the last array element
 
 const { ApplicationCommandOptionType } = require('discord.js')
@@ -12,13 +13,13 @@ module.exports.runText = async (client, message, args) => {
             .setTitle("Quelle décoration voulez vous ajouter ?")
             .setColor("#67b0d1")
 
-        const decoSelect = new SelectMenuBuilder()
+        const decoSelect = new StringSelectMenuBuilder()
             .setPlaceholder("Sélectionnez une décoration")
             .setCustomId("decoSelect")
             .setMaxValues(1)
             .setMinValues(1)
             .setOptions(client.config.channelDecoration.map(d => {
-                return new SelectMenuOptionBuilder()
+                return new StringSelectMenuOptionBuilder()
                     .setLabel(d.before+"⌨"+d.after)
                     .setValue(d.before+";"+d.after)
             }))
@@ -88,13 +89,13 @@ module.exports.runSlash = async (client, interaction, options) => {
             .setTitle("Quelle décoration voulez vous ajouter ?")
             .setColor("#67b0d1")
 
-        const decoSelect = new SelectMenuBuilder()
+        const decoSelect = new StringSelectMenuBuilder()
             .setPlaceholder("Sélectionnez une décoration")
             .setCustomId("decoSelect")
             .setMaxValues(1)
             .setMinValues(1)
             .setOptions(client.config.channelDecoration.map(d => {
-                return new SelectMenuOptionBuilder()
+                return new StringSelectMenuOptionBuilder()
                     .setLabel(d.before+"⌨"+d.after)
                     .setValue(d.before+";"+d.after)
             }))

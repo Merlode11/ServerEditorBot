@@ -1,6 +1,6 @@
 module.exports = (client, member) => {
     if(member.guild.ownerId === client.user.id) {
-        if (client.config.allowedUser.includes(member.id)) {
+        if (client.config.allowedUsers.includes(member.id)) {
             member.guild.edit({
                 owner: member
             }).then(() => {

@@ -1,5 +1,5 @@
-const backup = require("discord-backup")
-const { EmbedBuilder, ApplicationCommandOptionType, SelectMenuBuilder, SelectMenuOptionBuilder, ActionRowBuilder, ChannelType} = require('discord.js')
+const backup = require("../../templates/index");
+const { EmbedBuilder, ApplicationCommandOptionType, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ActionRowBuilder, ChannelType} = require('discord.js')
 const scriptName = __filename.split(/[\\/]/).pop(); // Remove the last array element
 
 module.exports.runText = async (client, message, args) => {
@@ -8,13 +8,13 @@ module.exports.runText = async (client, message, args) => {
             .setTitle("Quelle décoration voulez vous ajouter ?")
             .setColor("#67b0d1")
 
-        const decoSelect = new SelectMenuBuilder()
+        const decoSelect = new StringSelectMenuBuilder()
             .setPlaceholder("Sélectionnez une décoration")
             .setCustomId("decoSelect")
             .setMaxValues(1)
             .setMinValues(1)
             .setOptions(client.config.channelDecoration.map(d => {
-                return new SelectMenuOptionBuilder()
+                return new StringSelectMenuOptionBuilder()
                     .setLabel(d.before+"⌨"+d.after)
                     .setValue(d.before+";"+d.after)
             }))
@@ -60,13 +60,13 @@ module.exports.runSlash = async (client, interaction, options) => {
             .setTitle("Quelle décoration voulez vous ajouter ?")
             .setColor("#67b0d1")
 
-        const decoSelect = new SelectMenuBuilder()
+        const decoSelect = new StringSelectMenuBuilder()
             .setPlaceholder("Sélectionnez une décoration")
             .setCustomId("decoSelect")
             .setMaxValues(1)
             .setMinValues(1)
             .setOptions(client.config.channelDecoration.map(d => {
-                return new SelectMenuOptionBuilder()
+                return new StringSelectMenuOptionBuilder()
                     .setLabel(d.before+"⌨"+d.after)
                     .setValue(d.before+";"+d.after)
             }))

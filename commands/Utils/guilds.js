@@ -52,7 +52,7 @@ async function action(client, guild) {
 }
 
 module.exports.runText = async (client, message, args) => {
-  if (message.author.id !== "424485502071209984") return message.reply({
+  if (message.author.id !== client.config.owner) return message.reply({
         content: "Vous ne pouvez pas faire cette commande",
     });
 

@@ -7,20 +7,16 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "discord-backup": "^3.2.1",
-    "discord.js": "^14.6.0",
-    "fs": "^0.0.2"
+    "discord.js": "^14.8.0",
+    "fs": "^0.0.2",
+    "node-fetch": "^3.3.1"
   },
   "engines": {
     "node": ">=16.9.0"
   },
   "repository": {
-    "url": "https://github.com/IceroDev/Discord-Bot-Template"
+    "url": "https://github.com/Merlode11/ServerEditorBot"
   },
   "license": "MIT",
-  "keywords": [
-    "node",
-    "Template",
-    "javascript"
-  ]
+  "keywords": []
 }

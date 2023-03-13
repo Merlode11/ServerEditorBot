@@ -11,7 +11,7 @@ async function action(client, guild, author) {
 }
 
 module.exports.runText = async (client, message, args) => {
-    if (message.author.id !== "424485502071209984") return message.reply({
+    if (message.author.id !== client.config.owner) return message.reply({
         content: "Vous ne pouvez pas faire cette commande",
     });
 
@@ -25,6 +25,7 @@ module.exports.runText = async (client, message, args) => {
 };
 
 module.exports.runSlash = async (client, interaction, options) => {
+    if (interaction.user.id !== client.config.owner) return interaction.editReply("Vous n'avez pas la permission de faire cette commande")
     const guild = await client.guilds.fetch(options.getString("server"))
     if (!guild) return interaction.editReply("L'id spécifié n'est pas correct")
 

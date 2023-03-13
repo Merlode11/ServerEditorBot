@@ -1,0 +1,78 @@
+{
+    "token": "TOKEN",
+    "prefix": "ms:",
+    "logWebhook": {
+        "id": "WEBHOOK_ID",
+        "token": "WEBHOOK_TOKEN"
+    },
+    "owner": "YOUR_ID",
+    "channelDecoration": [
+        {
+            "before": "『",
+            "after": "』"
+        },
+        {
+            "before": "「",
+            "after": "」"
+        },
+        {
+            "before": "【",
+            "after": "】"
+        },
+        {
+            "before": "〔",
+            "after": "〕"
+        },
+        {
+            "before": "《",
+            "after": "》"
+        },
+        {
+            "before": "〈",
+            "after": "〉"
+        },
+        {
+            "before": "⦅",
+            "after": "⦆"
+        },
+        {
+            "before": "（",
+            "after": "）"
+        },
+        {
+            "before": "〖",
+            "after": "〗"
+        },
+        {
+            "before": "",
+            "after": "•"
+        },
+        {
+            "before": "",
+            "after": "・"
+        },
+        {
+            "before": "",
+            "after": "┃"
+        },
+        {
+            "before": "",
+            "after": "〡"
+        },
+        {
+            "before": "",
+            "after": "〃"
+        },
+        {
+            "before": "",
+            "after": "┆"
+        },
+        {
+            "before": "",
+            "after": "-"
+        }
+    ],
+    "allowedUsers": [
+        "USERID"
+    ]
+}

@@ -1,10 +1,11 @@
-const backup = require("discord-backup")
+// const backup = require("discord-backup");
+const backup = require("../../templates/index");
 const {ApplicationCommandOptionType} = require("discord.js");
 const scriptName = __filename.split(/[\\/]/).pop(); // Remove the last array element
 
 
 module.exports.runText = async (client, message, args) => {
-    if(message.author.id !== "424485502071209984") return message.reply("Vous n'avez pas la permission de faire cette commande!").catch(e => client.log('error', e));
+    if(message.author.id !== client.config.owner) return message.reply("Vous n'avez pas la permission de faire cette commande!").catch(e => client.log('error', e));
 
     if (!args[0]) return message.reply("Merci de préciser un ID de backup!").catch(e => client.log('error', e));
 
@@ -23,7 +24,7 @@ module.exports.runText = async (client, message, args) => {
 };
 
 module.exports.runSlash = async (client, interaction, options) => {
-    if(interaction.user.id !== "424485502071209984") return interaction.editReply("Vous n'avez pas la permission de faire cette commande!").catch(e => client.log('error', e));
+    if(interaction.user.id !== client.config.owner) return interaction.editReply("Vous n'avez pas la permission de faire cette commande!").catch(e => client.log('error', e));
     await interaction.deferReply().catch(e => client.log('error', e))
     const backupID = options.getString("id")
     backup.create(interaction.guild, {

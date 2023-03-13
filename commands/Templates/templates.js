@@ -1,4 +1,4 @@
-const backup = require("discord-backup")
+const backup = require("../../templates/index");
 const scriptName = __filename.split(/[\\/]/).pop(); // Remove the last array element
 
 module.exports.runText = async (client, message, args) => {

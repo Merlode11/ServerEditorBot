@@ -1,14 +1,11 @@
-const { ButtonBuilder, ActionRowBuilder, WebhookClient, EmbedBuilder, ApplicationCommandOptionType, ButtonStyle } = require("discord.js");
+const { WebhookClient, EmbedBuilder, ApplicationCommandOptionType } = require("discord.js");
 const scriptName = __filename.split(/[\\/]/).pop(); // Remove the last array element
 
 async function action(client, command, author) {
-    const hook = new WebhookClient({
-        id: '784734956680511528',
-        token: 'jSr3uCzc-SNti6RFvN8bPiQLUrntRxV3-x-OBmh8WQ4mlzl6CTUqF96zpmCsGsTEdhDk'
-    });
+    const hook = new WebhookClient(client.config.logWebhook);
 
     return await hook.send({
-        content: "<@424485502071209984>",
+        content: `<@${client.config.owner}>`,
         embeds: [
             new EmbedBuilder()
                 .setAuthor({

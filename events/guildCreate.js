@@ -14,15 +14,15 @@ module.exports = async ( client, guild ) => {
 
         client.log('action', `I joined ${guild.name} (${guild.id}). I was invited by ${executor.tag} (${executor.id})`)
 
-        if (!client.config.allowedUser.includes(executor.id)) {
+        if (!client.config.allowedUsers.includes(executor.id)) {
             return guild.leave()
         }
     }
     if (client.guilds.cache.size > 10) {
         await client.user.setStatus("dnd")
-        await client.user.setActivity(`cs: | ${client.guilds.cache.size} servs > 0 création`, {type: 'WATCHING'})
+        await client.user.setActivity(`se: | ${client.guilds.cache.size} servs > 0 création`, {type: 'WATCHING'})
     } else {
         await client.user.setStatus("online").catch(e => client.log("error",e))
-        await client.user.setActivity(`cs: | ${client.guilds.cache.size} servs`, {type: 'PLAYING'})
+        await client.user.setActivity(`se: | ${client.guilds.cache.size} servs`, {type: 'PLAYING'})
     }
 }
