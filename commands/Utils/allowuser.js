@@ -9,7 +9,7 @@ async function asyncForEach(array, callback) {
 }
 
 async function add(client, user) {
-    if (client.config.includes(user.id)) {
+    if (client.config.allowedUsers.includes(user.id)) {
         return `<@${user.id}> est déjà dans la liste des utilisateurs autorisés`
     }
     client.config.allowedUsers.push(user.id)

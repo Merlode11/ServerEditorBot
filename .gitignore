@@ -130,5 +130,5 @@ dist
 .vscode
 
 config.json
-/templates/backups/
+/templates/backup/
 config.json

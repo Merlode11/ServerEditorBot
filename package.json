@@ -1,6 +1,6 @@
 {
   "name": "server-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Gère la structure de vos serveurs",
   "main": "index.js",
   "scripts": {
